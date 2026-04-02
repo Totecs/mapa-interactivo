@@ -11,9 +11,24 @@ var marker = L.icon({
     shadowAnchor: [4, 62],  
     popupAnchor:  [-3, -76] 
 });
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-   attribution: 'OpenStreetMap'
+
+var CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
 }).addTo(map);
+var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
+});
+var capas = {
+    "capa blanco": CartoDB_Voyager,
+    "capa negra": CartoDB_DarkMatter
+};
+var layerControl = L.control.layers(capas).addTo(map);
+
+
 var marker = L.marker([-34.6037, -58.3816], {icon: marker})
    .addTo(conjunto)
    .bindPopup("Ubicación inicial")
